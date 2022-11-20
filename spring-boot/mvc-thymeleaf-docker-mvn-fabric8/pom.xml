@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.4.RELEASE</version>
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>mvc-thymeleaf-docker-mvn-fabric8</artifactId>	
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<description>Demo project for Spring Boot MVC, Thymeleaf and Docker with Maven Fabric8 Plugin.</description>	
+
+	<properties>
+		<java.version>1.8</java.version>
+		<!-- Name of project repository in Docker Hub -->
+		<docker.repository.name>wisniewk/${project.artifactId}</docker.repository.name>
+		<!-- Location of file Dockerfile for Docker -->
+		<docker.dockerFile>${project.basedir}/Dockerfile</docker.dockerFile>
+		<!-- Project port in Docker -->
+		<docker.port>8080:8080</docker.port>
+	</properties>
+
+	<dependencies>
+    	
+		<!-- Spring dependencies -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-web</artifactId>
+		</dependency>		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webmvc</artifactId>
+		</dependency>
+		
+		<!-- Thymeleaf dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
+		<!-- Remove Tomcat embedded dependencies -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+		<!-- Hot swapping, disable cache for template, enable live reload -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+	</dependencies>
+		
+	<build>
+		<finalName>app</finalName>
+		<plugins>
+			<!-- Package as an executable jar/war -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>						
+		</plugins>
+	</build>
+	
+	<profiles>
+	
+		<!-- Docker Refresh Image -->
+	   <profile>
+	      <id>dockerRefreshImage</id>
+	      <build>
+	         <plugins>	 		         
+		         <plugin>
+			         <groupId>io.fabric8</groupId>
+			         <artifactId>docker-maven-plugin</artifactId>
+			         <version>0.34.1</version>
+			         <executions>
+			         	<execution>
+			                 <id>stop</id>			                 
+			                 <phase>pre-integration-test</phase>
+			                 <goals>
+			                     <goal>stop</goal>
+			                 </goals>
+			             </execution>		         
+			             <execution>
+			                 <id>build</id>
+			                 <phase>integration-test</phase>
+			                 <goals>
+			                     <goal>build</goal>
+			                 </goals>
+			             </execution>		            
+			         </executions>			
+			         <configuration>
+			             <images>
+			                 <image>
+			                 <name>${docker.repository.name}</name>
+			                     <build>
+			                     <dockerFile>${docker.dockerFile}</dockerFile >
+			                         </build>
+			                         <run>
+			                             <ports>
+			                                 <port>${docker.port}</port>
+			                             </ports>			                               
+			                         </run>
+			                     </image>
+			
+			                 </images>
+			             </configuration>
+			         </plugin>		                 
+	         </plugins>
+	      </build>
+	   </profile>
+	   
+	   <!-- Docker Refresh Container -->
+	   <profile>
+	      <id>dockerRefreshContainer</id>
+	      <build>
+	         <plugins>	 		         
+		         <plugin>
+			         <groupId>io.fabric8</groupId>
+			         <artifactId>docker-maven-plugin</artifactId>
+			         <version>0.34.1</version>
+			         <executions>			         	
+			         	<execution>
+			                 <id>stop</id>			                 
+			                 <phase>pre-integration-test</phase>
+			                 <goals>
+			                     <goal>stop</goal>
+			                 </goals>
+			             </execution>		         
+			             <execution>
+			                 <id>build</id>
+			                 <phase>integration-test</phase>
+			                 <goals>
+			                     <goal>build</goal>
+			                 </goals>
+			             </execution>
+			             <execution>
+			                 <id>start</id>			                
+			                 <phase>post-integration-test</phase>
+			                 <goals>
+			                     <goal>start</goal>
+			                 </goals>
+			             </execution>			            
+			         </executions>			
+			         <configuration>
+			             <images>
+			                 <image>
+			                 <name>${docker.repository.name}</name>
+			                     <build>
+			                     <dockerFile>${docker.dockerFile}</dockerFile >
+			                         </build>
+			                         <run>
+			                             <ports>
+			                                 <port>${docker.port}</port>
+			                             </ports>			                               
+			                         </run>
+			                     </image>			
+			                 </images>
+			             </configuration>
+			         </plugin>		                 
+	         </plugins>
+	      </build>
+	   </profile>
+	   
+	    <!-- Docker Stop Container -->
+	   <profile>
+	      <id>dockerStopContainer</id>
+	      <build>
+	         <plugins>	 		         
+		         <plugin>
+			         <groupId>io.fabric8</groupId>
+			         <artifactId>docker-maven-plugin</artifactId>
+			         <version>0.34.1</version>
+			         <executions>			         	
+			         	<execution>
+			                 <id>stop</id>			                 
+			                 <phase>pre-integration-test</phase>
+			                 <goals>
+			                     <goal>stop</goal>
+			                 </goals>
+			             </execution>			            			            
+			         </executions>			
+			         <configuration>
+			             <images>
+			                 <image>
+			                 <name>${docker.repository.name}</name>
+			                     <build>
+			                     <dockerFile>${docker.dockerFile}</dockerFile >
+			                         </build>
+			                         <run>
+			                             <ports>
+			                                 <port>${docker.port}</port>
+			                             </ports>			                               
+			                         </run>
+			                     </image>			
+			                 </images>
+			             </configuration>
+			         </plugin>		                 
+	         </plugins>
+	      </build>
+	   </profile>	
+	   
+	   <!-- Docker Push Image -->
+	   <profile>
+	      <id>dockerPushImage</id>
+	      <build>
+	         <plugins>	 		         
+		         <plugin>
+			         <groupId>io.fabric8</groupId>
+			         <artifactId>docker-maven-plugin</artifactId>
+			         <version>0.34.1</version>
+			         <executions>
+			         	<execution>
+			                 <id>stop</id>			                 
+			                 <phase>pre-integration-test</phase>
+			                 <goals>
+			                     <goal>stop</goal>
+			                 </goals>
+			             </execution>		         
+			             <execution>
+			                 <id>build</id>
+			                 <phase>integration-test</phase>
+			                 <goals>
+			                     <goal>build</goal>
+			                 </goals>
+			             </execution>
+			             <execution>
+			                 <id>push</id>
+			                 <phase>post-integration-test</phase>
+			                 <goals>
+			                     <goal>push</goal>
+			                 </goals>
+			             </execution>		            
+			         </executions>			
+			         <configuration>			         	 
+			             <images>
+			                 <image>
+			                 <name>${docker.repository.name}</name>
+			                     <build>
+			                     <dockerFile>${docker.dockerFile}</dockerFile >
+			                         </build>
+			                         <run>
+			                             <ports>
+			                                 <port>${docker.port}</port>
+			                             </ports>			                               
+			                         </run>
+			                     </image>
+			
+			                 </images>
+			             </configuration>
+			         </plugin>		                 
+	         </plugins>
+	      </build>
+	   </profile>   	    
+	   
+	</profiles>
+	
+</project>

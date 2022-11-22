@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  helloworld:
+    image: helloworld-image
+    container_name: helloworld-container
+    build:
+      context: ./
+      dockerfile: Dockerfile-Fast
+    ports:
+      - 8080:8080
+    networks:
+      - helloworld-network
+
+networks:
+  helloworld-network:
+    name: helloworld-network-name

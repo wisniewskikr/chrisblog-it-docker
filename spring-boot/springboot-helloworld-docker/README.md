@@ -41,7 +41,7 @@ USAGE - FAST BUILD IMAGE AND RUN CONTAINER LOCALLY (FAST BUT REQUIRES LOCALLY IN
 -------------------------------------------------------------------------------------------------------
 
 Usage steps:
-1. Build package with `mvn clean package`
+1. Build package with `mvn clean package -Dmaven.test.skip`
 1. Build image with **docker build -t {image-name} .** . For instance with `docker build -f Dockerfile-Fast -t springboot-helloworld-docker-image .`
 1. Build and start container with **docker run -d -p {port}:{port} --name {container-name} {image-name}**. For instance with `docker run -d -p 8080:8080 --name springboot-helloworld-docker-container springboot-helloworld-docker-image`
 1. Visit `http://localhost:8080`

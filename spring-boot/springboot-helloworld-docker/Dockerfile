@@ -1,9 +1,14 @@
-FROM maven:3.5.2-jdk-8-alpine AS MAVEN_TOOL_CHAIN
-COPY pom.xml /tmp/
-COPY src /tmp/src/
-WORKDIR /tmp/
-RUN mvn package
+FROM eclipse-temurin:11-jdk-alpine as builder
+WORKDIR /opt/app
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:go-offline
+COPY ./src ./src
+RUN ./mvnw clean package -Dmaven.test.skip
+CMD ["java", "-jar", "/opt/app/*.jar"]
 
-FROM openjdk:8-jre-alpine
-COPY --from=MAVEN_TOOL_CHAIN /tmp/target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM eclipse-temurin:11-jre
+WORKDIR /opt/app
+COPY --from=builder /opt/app/target/*.jar  /opt/app/*.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/opt/app/*.jar"]

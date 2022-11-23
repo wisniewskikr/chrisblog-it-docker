@@ -43,7 +43,7 @@ USAGE - FAST (REQUIRES LOCALLY INSTALLED JAVA AND MAVEN)
 
 Usage steps:
 1. Build package with `mvn clean package -Dmaven.test.skip`
-1. Start application with `docker-compose -f Dockerfile-Fast up -d --build`
+1. Start application with `docker-compose -f docker-compose-fast.yml up -d --build`
 1. Visit `http://localhost:8080`
 1. Display container logs (optional)
 

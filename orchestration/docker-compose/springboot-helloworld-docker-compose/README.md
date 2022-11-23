@@ -39,7 +39,7 @@ PRECONDITIONS
 
 
 USAGE - FAST (REQUIRES LOCALLY INSTALLED JAVA AND MAVEN)
--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------
 
 Usage steps:
 1. Build package with `mvn clean package -Dmaven.test.skip`
@@ -52,8 +52,8 @@ Usage steps:
 1. Clean up environment with `docker-compose down --rmi all`
     
 
-USAGE - SLOW (REQUIRES LOCALLY INSTALLED JAVA AND MAVEN)
--------------------------------------------------------------------------------------------------------
+USAGE - SLOW (DOES NOT REQUIRE LOCALLY INSTALLED JAVA AND MAVEN)
+----------------------------------------------------------------
 
 Usage steps:
 1. Start application with `docker-compose up -d --build`

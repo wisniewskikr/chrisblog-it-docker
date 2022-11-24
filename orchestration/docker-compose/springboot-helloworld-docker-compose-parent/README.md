@@ -2,7 +2,7 @@ DESCRIPTION
 -----------
 
 ##### Goal
-The goal of this project is to present how to display **Hello World** message in a **browser** by **Java** application using **Spring Boot** framework and **Docker Compose** tool. Docker Compose enables orchestration of building and running Docker containers.
+The goal of this project is to present how to display **Hello World** message in a **browser** by **Java** application using **Spring Boot** framework and **Docker Compose** tool.  Docker Compose enables orchestration of building and running Docker containers. This project presents also usage Maven **modules** and **parent**.
 
 This project presents following Docker Compose tool features:
 * **Slow Orchestration** (it does not require locally installed Java and Maven) basing on **Dockerfile** files and run Containers set on local computer

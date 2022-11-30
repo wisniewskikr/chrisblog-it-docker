@@ -1,3 +1,21 @@
+- mvn clean package -Dmaven.test.skip
+
+- docker build -f service-storage/Dockerfile-Fast -t service-storage-image ./service-storage
+- docker tag service-storage-image wisniewskikr/springboot-kubernetes-communication-service-storage-image
+- docker push wisniewskikr/springboot-kubernetes-communication-service-storage-image
+
+- docker build -f service-display/Dockerfile-Fast -t service-display-image ./service-display
+- docker tag service-display-image wisniewskikr/springboot-kubernetes-communication-service-display-image
+- docker push wisniewskikr/springboot-kubernetes-communication-service-display-image
+
+- minikube start
+
+- kubectl apply -f kubernetes.yaml
+
+- minikube service storage-service
+
+
+
 DESCRIPTION
 -----------
 

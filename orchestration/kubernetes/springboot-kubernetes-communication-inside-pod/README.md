@@ -1,41 +1,33 @@
-- mvn clean package -Dmaven.test.skip
-
-- docker build -f service-storage/Dockerfile-Fast -t service-storage-image ./service-storage
-- docker tag service-storage-image wisniewskikr/springboot-kubernetes-communication-service-storage-image
-- docker push wisniewskikr/springboot-kubernetes-communication-service-storage-image
-
-- docker build -f service-display/Dockerfile-Fast -t service-display-image ./service-display
-- docker tag service-display-image wisniewskikr/springboot-kubernetes-communication-service-display-image
-- docker push wisniewskikr/springboot-kubernetes-communication-service-display-image
-
-- minikube start
-
-- kubectl apply -f kubernetes.yaml
-
-- minikube service storage-service
-
-
-
 DESCRIPTION
 -----------
 
 ##### Goal
-The goal of this project is to present how to implement **communication** between two applications using **WebClient**. The result is **Hello World** message and **port** numbers of **Text** and **Display** services in a **JSON** format in a **browser** using **Java** applications with **Spring Boot** framework.
+The goal of this project is to present how to implement **communication** between services **inside Kubernetes Pod** using **Java** programming language and **Spring Boot** framework. All Kubernetes configuration is included in file **kubernetes.yaml**.
 
-##### Details
-Three the most important ways of communication between applications in Spring Boot are:
-* **RestTemplate**: synchronous communication
-* **WebClient**: synchronous and asynchronous communication
-* **OpenFeing**: related to Spring Cloud
+##### Service
+This project consists of following services:
+* **Service Storage**: port **9090**. This service storages "Hello World" message
+* **Service Display**: port **8080**. This service displays message from Service Storage and ports of Service Display and Service Storage
 
-In this example - blocked WebClient - text is displayed only when communication with Text service is finished. The application displays message "Hello World" and "port" numbers of "Text" and "Display" services in JSON format in a browser. Service "Text" provides text which should be displayed. Service "Display" connects with service "Text" and takes from it text and port and then display it in a browser.
+##### Flow
+The following flow takes place in this project:
+1. User via Browser sends request to Service Display for content
+1. Service Display sends request to Service Storage for message
+1. Service Storage sends back message to Service Display
+1. Service Display sends message and services ports to User via Browser
 
 ##### Launch
 To launch this application please make sure that the **Preconditions** are met and then follow instructions from **Usage** section.
 
 ##### Technologies
-This application uses:
-* **Spring Boot** framework: framework details: `https://docs.google.com/document/d/1mvrJT5clbkr9yTj-AQ7YOXcqr2eHSEw2J8n9BMZIZKY/edit?usp=sharing`
+This project uses following technologies:
+* **Java**: `https://docs.google.com/document/d/119VYxF8JIZIUSk7JjwEPNX1RVjHBGbXHBKuK_1ytJg4/edit?usp=sharing`
+* **Maven**: `https://docs.google.com/document/d/1cfIMcqkWlobUfVfTLQp7ixqEcOtoTR8X6OGo3cU4maw/edit?usp=sharing`
+* **Git**: `https://docs.google.com/document/d/1Iyxy5DYfsrEZK5fxZJnYy5a1saARxd5LyMEscJKSHn0/edit?usp=sharing`
+* **Spring Boot**: `https://docs.google.com/document/d/1mvrJT5clbkr9yTj-AQ7YOXcqr2eHSEw2J8n9BMZIZKY/edit?usp=sharing`
+* **Docker**: `https://docs.google.com/document/d/1tKdfZIrNhTNWjlWcqUkg4lteI91EhBvaj6VDrhpnCnk/edit?usp=sharing`
+* **Kubernetes**: `https://docs.google.com/document/d/1jOsK3Lkbkoq-Xx7Ln9o_ozCt6XpcSElOwu1o2AfQnNc/edit?usp=sharing`
+* **Minikube**: `https://docs.google.com/document/d/1GfgN7tJNTIJCaSzexJdR_Lm_S9pF2YykcpgSQzAZWZo/edit?usp=sharing`
 
 
 PRECONDITIONS
@@ -43,24 +35,37 @@ PRECONDITIONS
 
 ##### Preconditions - Tools
 * Installed **Operating System** (tested on Windows 10)
-* Installed **Java** (tested on version 1.8.0_291). Tool details: `https://docs.google.com/document/d/119VYxF8JIZIUSk7JjwEPNX1RVjHBGbXHBKuK_1ytJg4/edit?usp=sharing`
-* Installed **Maven** (tested on version 3.8.5). Tool details: `https://docs.google.com/document/d/1cfIMcqkWlobUfVfTLQp7ixqEcOtoTR8X6OGo3cU4maw/edit?usp=sharing`
-* Installed **Git** (tested on version 2.33.0.windows.2). Tool details: `https://docs.google.com/document/d/1Iyxy5DYfsrEZK5fxZJnYy5a1saARxd5LyMEscJKSHn0/edit?usp=sharing`
+* Installed **Java** (tested on version 11.0.16.1)
+* Installed **Maven** (tested on version 3.8.5)
+* Installed **Git** (tested on version 2.33.0.windows.2)
+* Installed **Docker** (tested on version 20.10.21)
+* Installed **Minikube** (tested on version v1.28.0)
+* Installed **kubectl**
 
 ##### Preconditions - Actions
-* **Download** source code and open any **Command Line** tool on **project's folder**. You can do it in following way:
-    * Open any Command Line tool (for instance "Windonw PowerShell" on Windows OS) and go to folder where you want to download source code 
-    * Clone Github repository with `git clone https://github.com/wisniewskikr/chrisblog-it.git`
-    * Go to source code folder with `cd chrisblog-it\java-springboot-communication\springboot-communication-webclient`
+* **Launched** Docker on local machine
+* **Launched** Minikube on local machine with command `minikube start`
+* **Download** source code using Git 
+* Open any **Command Line** (for instance "Windonw PowerShell" on Windows OS) tool on **project's folder** (exact localization of project you can check in GIT repositories on page `https://github.com/wisniewskikr/chrisblog-it-docker`)
 
 
 USAGE
 -----
 
 Usage steps:
-1. In the first Command Line tool start application with `mvn -f ./springboot-helloworld-browser-json-ports-text spring-boot:run`
-2. In the second Command Line tool start application with `mvn -f ./springboot-helloworld-browser-json-ports-display spring-boot:run`
-3. Visit `http://localhost:8080`
-4. Clean up environment:
-    * In the first Command Line with `ctrl + C`
-    * In the second Command Line with `ctrl + C`
+1. In Command Line tool run Kubernetes configuration for services with `kubectl apply -f kubernetes.yaml`
+1. (Optional) In Command Line tool check Pods status on Minikube Dashboard with `minikube dashboard`
+1. In Command Line tool run Display Service in browser with `minikube service display-service`
+
+
+DOCKER IMAGES BUILD AND DEPLOYMENT (OPTIONAL)
+---------------------------------------------
+
+If you want to build and deploy your own Docker Images based on provided source code please proceed with following steps:
+1. In Command Line tool build packages with `mvn clean package -D maven.test.skip`
+1. In Command Line tool build Docker Image for Service Storage with `docker build -f service-storage/Dockerfile-Fast -t service-storage-image ./service-storage`
+1. In Command Line tool tag Docker Image for Service Storage with your own Docker Id with **docker tag service-storage-image {docker-id}/springboot-kubernetes-communication-service-storage-image**. In my case the command would look like: `docker tag service-storage-image wisniewskikr/springboot-kubernetes-communication-service-storage-image`
+1. In Command Line tool push tagged Docker Image for Service Storage to your own Docker repository with **docker push {docker-id}/springboot-kubernetes-communication-service-storage-image**. In my case the command would look like: `docker push wisniewskikr/springboot-kubernetes-communication-service-storage-image`
+1. In Command Line tool build Docker Image for Service Display with `docker build -f service-display/Dockerfile-Fast -t service-display-image ./service-display`
+1. In Command Line tool tag Docker Image for Service Display with your own Docker Id with **docker tag service-display-image {docker-id}/springboot-kubernetes-communication-service-display-image**. In my case the command would look like: `docker tag service-display-image wisniewskikr/springboot-kubernetes-communication-service-display-image`
+1. In Command Line tool push tagged Docker Image for Service Display to your own Docker repository with **docker push {docker-id}/springboot-kubernetes-communication-service-display-image**. In my case the command would look like: `docker push wisniewskikr/springboot-kubernetes-communication-service-display-image`

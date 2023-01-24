@@ -1,24 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloworld-deployment
+  name: display-deployment
   labels:
-    app: helloworld-deployment
+    app: display-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: storage-container
+      app: display-container
   template:
     metadata:
       labels:
-        app: storage-container
+        app: display-container
     spec:
       containers:
       - name: storage-container
         image: wisniewskikr/springboot-kubernetes-communication-service-storage-image
         ports:
         - containerPort: 9090
+        env:
+        - name: server.port
+          value: "9090"
         readinessProbe:
             httpGet:
               path: /actuator/health
@@ -29,18 +32,37 @@ spec:
               path: /actuator/health
               port: 9090
             initialDelaySeconds: 5
+      - name: display-container
+        image: wisniewskikr/springboot-kubernetes-communication-service-display-image
+        ports:
+        - containerPort: 8080
+        env:
+        - name: storage.service.url
+          value: "http://localhost:9090"
+        readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 5
+        livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 5
       restartPolicy: Always
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: storage-service
+  name: display-service
 spec:
   type: NodePort
   selector:
-    app: storage-container
+    app: display-container
   ports:
     - protocol: TCP
-      port: 9090
-      targetPort: 9090
+      port: 8080
+      targetPort: 8080
       nodePort: 31000

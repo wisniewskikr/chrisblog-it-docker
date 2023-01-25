@@ -12,8 +12,10 @@ It presents following Docker tool features:
 
 ##### Flow
 The following flow takes place in this project:
-1. User via any browser sends request to application for a content.
-1. Application HelloWorld returns response with JSON containing message, port and UUID. This response is presented to User via browser.
+1. User via any browser sends request to FE application for a content
+1. FE application sends request to BE application for a content
+1. BE application sends back response with message, BE port and BE UUID to FE application
+1. FE application sends back response with message, FE port, FE UUID, BE port and BE UUID to User via browser
 
 ##### Launch
 To launch this application please make sure that the **Preconditions** are met and then follow instructions from **Usage** section.
@@ -46,9 +48,12 @@ USAGE - FAST BUILD IMAGE AND RUN CONTAINER LOCALLY (FAST BUT REQUIRES LOCALLY IN
 Usage steps:
 1. Build package with `mvn clean package -D maven.test.skip`
 1. Build image FE with **docker build -t {image-name} .** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-fe/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-fe-image .`
-1. Build and start container FE with **docker run -d -p {port}:{port} --name {container-name} {image-name}**. For instance with `docker run -d -p 8080:8080 --name springboot-helloworld-port-uuid-docker-multiple-fe-container springboot-helloworld-port-uuid-docker-multiple-fe-image`
+1. Build and start container FE with **docker run -d -p {port}:{port} -e {env-variable-name}={env-variable-value} --name {container-name} {image-name}**. For instance with `docker run -d -p 8080:8080 -e helloworld.be.url='http://springboot-helloworld-port-uuid-docker-multiple-be-container:9090' --name springboot-helloworld-port-uuid-docker-multiple-fe-container springboot-helloworld-port-uuid-docker-multiple-fe-image`
 1. Build image BE with **docker build -t {image-name} .** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-be/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-be-image .`
 1. Build and start container BE with **docker run -d -p {port}:{port} --name {container-name} {image-name}**. For instance with `docker run -d -p 9090:9090 --name springboot-helloworld-port-uuid-docker-multiple-be-container springboot-helloworld-port-uuid-docker-multiple-be-image`
+1. Create network with **docker network create {network-name}**. For instance with `docker network create helloworld-network`
+1. Connect container FE with network with **docker network connect {network-name} {fe-container-name}**. For instance with `docker network connect helloworld-network springboot-helloworld-port-uuid-docker-multiple-fe-container`
+1. Connect container BE with network with **docker network connect {network-name} {be-container-name}**. For instance with `docker network connect helloworld-network springboot-helloworld-port-uuid-docker-multiple-be-container`
 1. Visit `http://localhost:8080`
 1. Display container FE logs (optional)
 
@@ -66,6 +71,7 @@ Usage steps:
     * Stop container BE with **docker stop {container-name}**. For instance with `docker stop springboot-helloworld-port-uuid-docker-multiple-be-container`
     * Remove container BE with **docker rm {container-name}**. For instance with `docker rm springboot-helloworld-port-uuid-docker-multiple-be-container`
     * Remove image BE with **docker rmi {image-name}**. For instance with `docker rmi springboot-helloworld-port-uuid-docker-multiple-be-image`
+    * Remove network with **docker network rm {network-name}**. For instance with `docker network rm helloworld-network`
     
 
 USAGE - SLOW BUILD IMAGE AND RUN CONTAINER LOCALLY (SLOW BUT DOES NOT REQUIRE LOCALLY INSTALLED JAVA AND MAVEN)
@@ -166,6 +172,7 @@ DOCKER - BASIC COMMANDS OF NETWORK
 * **docker network rm <network>**: removes specific network. For instance: `docker network rm demo-network`
 * **docker network rm $(docker network ls | tail -n+2 | awk '{if($2 !~ /bridge|none|host/){ print $1 }}')**: removes all networks;
 * **docker run --network <network> --name <container> -p <port> <image>**: run container in specific network. For instance: `docker run --network demo-network --name demo-container -p 8080:8080 demo-image`
+* **docker network connect {network-name} {container-name}**: connects specific container with specific network. For instance: `docker network connect demo-network demo-container` 
 
 
 DOCKER - OTHER BASIC COMMANDS
@@ -177,3 +184,4 @@ DOCKER - OTHER BASIC COMMANDS
 * **docker kill <container>**: immediately stops container. For instance: `docker kill demo-container`
 * **docker system prune**: removes all unused images, containers etc.
 * **docker exec -it <container> <command>**: runs some command on specific container. For instance: `docker exec -it busybox ls`
+* **docker inspect {controller-name}**: displays details of specified controller. Controller can be container, network etc. For instance: `docker inspect demo-network`

@@ -47,9 +47,9 @@ USAGE - FAST BUILD IMAGE AND RUN CONTAINER LOCALLY (FAST BUT REQUIRES LOCALLY IN
 
 Usage steps:
 1. Build package with `mvn clean package -D maven.test.skip`
-1. Build image FE with **docker build -t {image-name} .** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-fe/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-fe-image .`
+1. Build image FE with **docker build -t {image-name} ./{project-folder}** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-fe/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-fe-image ./springboot-helloworld-port-uuid-docker-multiple-fe`
 1. Build and start container FE with **docker run -d -p {port}:{port} -e {env-variable-name}={env-variable-value} --name {container-name} {image-name}**. For instance with `docker run -d -p 8080:8080 -e helloworld.be.url='http://springboot-helloworld-port-uuid-docker-multiple-be-container:9090' --name springboot-helloworld-port-uuid-docker-multiple-fe-container springboot-helloworld-port-uuid-docker-multiple-fe-image`
-1. Build image BE with **docker build -t {image-name} .** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-be/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-be-image .`
+1. Build image BE with **docker build -t {image-name} ./{project-folder}** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-be/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-be-image ./springboot-helloworld-port-uuid-docker-multiple-be`
 1. Build and start container BE with **docker run -d -p {port}:{port} --name {container-name} {image-name}**. For instance with `docker run -d -p 9090:9090 --name springboot-helloworld-port-uuid-docker-multiple-be-container springboot-helloworld-port-uuid-docker-multiple-be-image`
 1. Create network with **docker network create {network-name}**. For instance with `docker network create helloworld-network`
 1. Connect container FE with network with **docker network connect {network-name} {fe-container-name}**. For instance with `docker network connect helloworld-network springboot-helloworld-port-uuid-docker-multiple-fe-container`

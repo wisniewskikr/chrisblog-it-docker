@@ -86,11 +86,11 @@ Usage steps:
 1. Connect container FE with network with **docker network connect {network-name} {fe-container-name}**. For instance with `docker network connect helloworld-network springboot-helloworld-port-uuid-docker-multiple-fe-container`
 1. Connect container BE with network with **docker network connect {network-name} {be-container-name}**. For instance with `docker network connect helloworld-network springboot-helloworld-port-uuid-docker-multiple-be-container`
 1. Visit `http://localhost:8080`
-1. Display container FE logs (optional)
+1. (Optional) Display container FE logs
 
     * Display logs with **docker logs {container-name}**. For instance with `docker logs springboot-helloworld-port-uuid-docker-multiple-fe-container`
     * Stop displaying logs with `ctrl + c`
-1. Display container BE logs (optional)
+1. (Optional) Display container BE logs
 
     * Display logs with **docker logs {container-name}**. For instance with `docker logs springboot-helloworld-port-uuid-docker-multiple-be-container`
     * Stop displaying logs with `ctrl + c`
@@ -105,20 +105,32 @@ Usage steps:
     * Remove network with **docker network rm {network-name}**. For instance with `docker network rm helloworld-network`
 
     
-USAGE - BUILD IMAGE AND PUSH IT TO REMOTE REPOSITORY
+USAGE - BUILD IMAGE FE AND PUSH IT TO REMOTE REPOSITORY
 ----------------------------------------------------
 
 Usage steps:
 1. Build package with `mvn clean package -D maven.test.skip`
-2. Build image with **docker build -t {image-name} .** . For instance with `docker build -f Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-fe-image .`
-3. Tag image with **docker tag {image-name} {docker-id}/{image-name}**. For instance with `docker tag springboot-helloworld-port-uuid-docker-multiple-fe-image wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-fe-image`
-4. Push image to remote repository with **docker push {docker-id}/{image-name}** . For instance with `docker push wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-fe-image`
-5. Check remote repository with `https://hub.docker.com`. Log in to your **docker-id** account and check that image with **{image-name}** exists there. For instance `springboot-helloworld-port-uuid-docker-multiple-fe-image`
-6. Clean up environment:
+1. Build image with **docker build -t {image-name} .** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-fe/Dockerfile-Fast -t wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-fe-image ./springboot-helloworld-port-uuid-docker-multiple-fe`
+1. Push image to remote repository with **docker push {docker-id}/{image-name}** . For instance with `docker push wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-fe-image`
+1. (Optional) Check remote repository with `https://hub.docker.com`. Log in to your **docker-id** account and check that image with **{image-name}** exists there. For instance `springboot-helloworld-port-uuid-docker-multiple-fe-image`
+1. Clean up environment:
 
     * Remove tagged image with **docker rmi {docker-id}/{image-name}**. For instance with `docker rmi wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-fe-image`
-    * Remove image with **docker rmi {image-name}**. For instance with `docker rmi springboot-helloworld-port-uuid-docker-multiple-fe-image`
-    * Remove image with name **{image-name}** from your **docker-id** remote repository `https://hub.docker.com`. For instance `springboot-helloworld-port-uuid-docker-multiple-fe-image`.
+    * Remove image with name **{image-name}** from your **docker-id** remote repository `https://hub.docker.com`. For instance `springboot-helloworld-port-uuid-docker-multiple-fe-image`
+    
+
+USAGE - BUILD IMAGE BE AND PUSH IT TO REMOTE REPOSITORY
+----------------------------------------------------
+
+Usage steps:
+1. Build package with `mvn clean package -D maven.test.skip`
+1. Build image with **docker build -t {image-name} .** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-be/Dockerfile-Fast -t wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-be-image ./springboot-helloworld-port-uuid-docker-multiple-be`
+1. Push image to remote repository with **docker push {docker-id}/{image-name}** . For instance with `docker push wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-be-image`
+1. (Optional) Check remote repository with `https://hub.docker.com`. Log in to your **docker-id** account and check that image with **{image-name}** exists there. For instance `springboot-helloworld-port-uuid-docker-multiple-be-image`
+1. Clean up environment:
+
+    * Remove tagged image with **docker rmi {docker-id}/{image-name}**. For instance with `docker rmi wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-be-image`
+    * Remove image with name **{image-name}** from your **docker-id** remote repository `https://hub.docker.com`. For instance `springboot-helloworld-port-uuid-docker-multiple-be-image`
 
 
 USAGE - PULL IMAGE FROM REMOTE REPOSITORY AND RUN CONTAINER LOCALLY

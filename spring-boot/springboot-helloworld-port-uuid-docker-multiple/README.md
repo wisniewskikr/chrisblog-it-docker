@@ -138,7 +138,7 @@ USAGE - PULL IMAGE FE FROM REMOTE REPOSITORY AND RUN CONTAINER LOCALLY
 
 Usage steps:
 1. Pull image from remote repository with **docker pull {docker-id}\{image-name}**. For instance with `docker pull wisniewskikr\springboot-helloworld-port-uuid-docker-multiple-fe-image`
-2. Start container with **docker run -d -p {port}:{port} --name {container-name} {docker-id}/{image-name}**. For instance with `docker run -d -p 8080:8080 --name springboot-helloworld-port-uuid-docker-multiple-fe-container wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-fe-image`
+2. Start container with **docker run -d -p {port}:{port} --name {container-name} {docker-id}/{image-name}**. For instance with `docker run -d -p 8080:8080 -e helloworld.be.url='http://springboot-helloworld-port-uuid-docker-multiple-be-container:9090' --name springboot-helloworld-port-uuid-docker-multiple-fe-container springboot-helloworld-port-uuid-docker-multiple-fe-image`
 3. Visit `http://localhost:8080`
 4. (Optional) Display container logs
 

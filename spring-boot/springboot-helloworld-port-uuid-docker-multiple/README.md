@@ -63,7 +63,7 @@ USAGE - SLOW BUILD IMAGE AND RUN CONTAINER LOCALLY (SLOW BUT DOES NOT REQUIRE LO
 ---------------------------------------------------------------------------------------------------------------
 
 Usage steps:
-1. Build image with **docker build -t {image-name} .** . For instance with `docker build -t springboot-helloworld-port-uuid-docker-multiple-fe-image .`
+1. Build image with **docker build -t {image-name} .** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-fe/Dockerfile -t springboot-helloworld-port-uuid-docker-multiple-fe-image .`
 1. Build and start container with **docker run -d -p {port}:{port} --name {container-name} {image-name}**. For instance with `docker run -d -p 8080:8080 --name springboot-helloworld-port-uuid-docker-multiple-fe-container springboot-helloworld-port-uuid-docker-multiple-fe-image`
 1. Visit `http://localhost:8080`
 1. Display container logs (optional)

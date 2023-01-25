@@ -133,14 +133,14 @@ Usage steps:
     * Remove image with name **{image-name}** from your **docker-id** remote repository `https://hub.docker.com`. For instance `springboot-helloworld-port-uuid-docker-multiple-be-image`
 
 
-USAGE - PULL IMAGE FROM REMOTE REPOSITORY AND RUN CONTAINER LOCALLY
+USAGE - PULL IMAGE FE FROM REMOTE REPOSITORY AND RUN CONTAINER LOCALLY
 -------------------------------------------------------------------
 
 Usage steps:
 1. Pull image from remote repository with **docker pull {docker-id}\{image-name}**. For instance with `docker pull wisniewskikr\springboot-helloworld-port-uuid-docker-multiple-fe-image`
 2. Start container with **docker run -d -p {port}:{port} --name {container-name} {docker-id}/{image-name}**. For instance with `docker run -d -p 8080:8080 --name springboot-helloworld-port-uuid-docker-multiple-fe-container wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-fe-image`
 3. Visit `http://localhost:8080`
-4. Display container logs (optional)
+4. (Optional) Display container logs
 
     * Display logs with **docker logs {container-name}**. For instance with `docker logs springboot-helloworld-port-uuid-docker-multiple-fe-container`
     * Stop displaying logs with `ctrl + c`
@@ -149,6 +149,24 @@ Usage steps:
     * Stop container with **docker stop {container-name}**. For instance with `docker stop springboot-helloworld-port-uuid-docker-multiple-fe-container`
     * Remove container with **docker rm {container-name}**. For instance with `docker rm springboot-helloworld-port-uuid-docker-multiple-fe-container`
     * Remove image with **docker rmi {docker-id}/{image-name}**. For instance with `docker rmi wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-fe-image`
+
+
+USAGE - PULL IMAGE BE FROM REMOTE REPOSITORY AND RUN CONTAINER LOCALLY
+-------------------------------------------------------------------
+
+Usage steps:
+1. Pull image from remote repository with **docker pull {docker-id}\{image-name}**. For instance with `docker pull wisniewskikr\springboot-helloworld-port-uuid-docker-multiple-be-image`
+2. Start container with **docker run -d -p {port}:{port} --name {container-name} {docker-id}/{image-name}**. For instance with `docker run -d -p 9090:9090 --name springboot-helloworld-port-uuid-docker-multiple-be-container wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-be-image`
+3. Visit `http://localhost:9090`
+4. (Optional) Display container logs
+
+    * Display logs with **docker logs {container-name}**. For instance with `docker logs springboot-helloworld-port-uuid-docker-multiple-be-container`
+    * Stop displaying logs with `ctrl + c`
+5. Clean up environment:
+
+    * Stop container with **docker stop {container-name}**. For instance with `docker stop springboot-helloworld-port-uuid-docker-multiple-be-container`
+    * Remove container with **docker rm {container-name}**. For instance with `docker rm springboot-helloworld-port-uuid-docker-multiple-be-container`
+    * Remove image with **docker rmi {docker-id}/{image-name}**. For instance with `docker rmi wisniewskikr/springboot-helloworld-port-uuid-docker-multiple-be-image`
 
 
 DOCKER - BASIC COMMANDS

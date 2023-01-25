@@ -1,9 +1,9 @@
 FROM eclipse-temurin:11-jdk-alpine as builder
 WORKDIR /opt/app
-COPY /springboot-helloworld-port-uuid-docker-multiple-fe/.mvn/ .mvn
-COPY /springboot-helloworld-port-uuid-docker-multiple-fe/mvnw pom.xml ./
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
 RUN ./mvnw dependency:go-offline
-COPY /springboot-helloworld-port-uuid-docker-multiple-fe/src src
+COPY src src
 RUN ./mvnw clean package -Dmaven.test.skip
 CMD ["java", "-jar", "/opt/app/*.jar"]
 

@@ -47,16 +47,25 @@ Usage steps:
 1. Build package with `mvn clean package -D maven.test.skip`
 1. Build image with **docker build -t {image-name} .** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-fe/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-fe-image .`
 1. Build and start container with **docker run -d -p {port}:{port} --name {container-name} {image-name}**. For instance with `docker run -d -p 8080:8080 --name springboot-helloworld-port-uuid-docker-multiple-fe-container springboot-helloworld-port-uuid-docker-multiple-fe-image`
+1. Build image with **docker build -t {image-name} .** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-be/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-be-image .`
+1. Build and start container with **docker run -d -p {port}:{port} --name {container-name} {image-name}**. For instance with `docker run -d -p 9090:9090 --name springboot-helloworld-port-uuid-docker-multiple-be-container springboot-helloworld-port-uuid-docker-multiple-be-image`
 1. Visit `http://localhost:8080`
-1. Display container logs (optional)
+1. Display container FE logs (optional)
 
     * Display logs with **docker logs {container-name}**. For instance with `docker logs springboot-helloworld-port-uuid-docker-multiple-fe-container`
     * Stop displaying logs with `ctrl + c`
+1. Display container BE logs (optional)
+
+    * Display logs with **docker logs {container-name}**. For instance with `docker logs springboot-helloworld-port-uuid-docker-multiple-be-container`
+    * Stop displaying logs with `ctrl + c`
 1. Clean up environment:
 
-    * Stop container with **docker stop {container-name}**. For instance with `docker stop springboot-helloworld-port-uuid-docker-multiple-fe-container`
-    * Remove container with **docker rm {container-name}**. For instance with `docker rm springboot-helloworld-port-uuid-docker-multiple-fe-container`
-    * Remove image with **docker rmi {image-name}**. For instance with `docker rmi springboot-helloworld-port-uuid-docker-multiple-fe-image`
+    * Stop container FE with **docker stop {container-name}**. For instance with `docker stop springboot-helloworld-port-uuid-docker-multiple-fe-container`
+    * Remove container FE with **docker rm {container-name}**. For instance with `docker rm springboot-helloworld-port-uuid-docker-multiple-fe-container`
+    * Remove image FE with **docker rmi {image-name}**. For instance with `docker rmi springboot-helloworld-port-uuid-docker-multiple-fe-image`
+    * Stop container BE with **docker stop {container-name}**. For instance with `docker stop springboot-helloworld-port-uuid-docker-multiple-be-container`
+    * Remove container BE with **docker rm {container-name}**. For instance with `docker rm springboot-helloworld-port-uuid-docker-multiple-be-container`
+    * Remove image BE with **docker rmi {image-name}**. For instance with `docker rmi springboot-helloworld-port-uuid-docker-multiple-be-image`
     
 
 USAGE - SLOW BUILD IMAGE AND RUN CONTAINER LOCALLY (SLOW BUT DOES NOT REQUIRE LOCALLY INSTALLED JAVA AND MAVEN)

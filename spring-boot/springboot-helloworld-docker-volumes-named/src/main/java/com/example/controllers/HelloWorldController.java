@@ -62,7 +62,7 @@ public class HelloWorldController {
 		list.add("Hello World " + index);
 		String contentMessage = String.join(", ", list);
 		
-		return contentMessage;
+		return contentMessage.replaceAll("\\r\\n", "");
 		
 	}
 	

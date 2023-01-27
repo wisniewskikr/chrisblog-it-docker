@@ -1,5 +1,10 @@
 package com.example.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +29,13 @@ public class HelloWorldController {
 	}
 
 	@RequestMapping(value="/")
-	public String helloWorld() {
+	public String helloWorld() throws IOException {
 		
-//		String filePath = folderPath + "\\" + fileName;
-		String filePath = fileName;
-		fileService.writeToFile(filePath, "Hello World!");
-		String message = fileService.readFromFile(filePath);
+		Path pathFile = Paths.get(folderPath + "/" + fileName);
+		System.out.println(pathFile.toAbsolutePath().toString());
+		Files.createDirectories(Paths.get(folderPath));
+		fileService.writeToFile(pathFile.toString(), "Hello World!");
+		String message = fileService.readFromFile(pathFile.toString());
 		return message;
 		
 	}

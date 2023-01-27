@@ -1,9 +1,6 @@
 package com.example.controllers;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,11 +12,8 @@ import com.example.services.FileService;
 @RestController
 public class HelloWorldController {
 	
-	@Value("${stored.folder.path}")
-	private String folderPath;
-	
-	@Value("${stored.file.name}")
-	private String fileName;
+	@Value("${file.path}")
+	private String filePath;
 	
 	private FileService fileService;
 	
@@ -29,13 +23,10 @@ public class HelloWorldController {
 	}
 
 	@RequestMapping(value="/")
-	public String helloWorld() throws IOException {
+	public String helloWorld() throws IOException {		
 		
-		Path filePath = Paths.get(folderPath + "/" + fileName);
-		Files.createDirectories(Paths.get(folderPath));
-		fileService.writeToFile(filePath.toString(), "Hello World!");
+		fileService.writeToFile(filePath, "Hello World!");
 		return fileService.readFromFile(filePath.toString());
-
 		
 	}
 	

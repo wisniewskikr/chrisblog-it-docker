@@ -2,7 +2,7 @@ DESCRIPTION
 -----------
 
 ##### Goal
-The goal of this project is to present how to use **named volumes** in **Docker** based on **Java** application using **Spring Boot** framework.
+The goal of this project is to present how to use **pathed volumes** in **Docker** based on **Java** application using **Spring Boot** framework.
 
 **Docker Volumes** enable mapping folder from container to folder in the computer. Advantages:
 * **Persistence**: data still exist after removing container and creating new one
@@ -49,23 +49,20 @@ USAGE - PERSISTENCE
 
 Usage steps:
 1. Build package with `mvn clean package -D maven.test.skip`
-1. Build image with `docker build -f Dockerfile-Fast -t springboot-helloworld-docker-volumes-named-image .`
-1. Build and start container with `docker run -d -v helloworld-volume:/tmp/volume -p 8080:8080 --name springboot-helloworld-docker-volumes-named-container springboot-helloworld-docker-volumes-named-image`
+1. Build image with `docker build -f Dockerfile-Fast -t springboot-helloworld-docker-volumes-pathed-image .`
+1. Build and start container with `docker run -d -v /tmp/computer/volume:/tmp/volume -p 8080:8080 --name springboot-helloworld-docker-volumes-pathed-container springboot-helloworld-docker-volumes-pathed-image`
 1. Visit (expected one Hello World message) `http://localhost:8080/not-stored-as-volume`
 1. Visit (expected one Hello World message) `http://localhost:8080/stored-as-volume`
-1. Stop container with `docker stop springboot-helloworld-docker-volumes-named-container`
-1. Remove container with `docker rm springboot-helloworld-docker-volumes-named-container`
-1. Build and start container with `docker run -d -v helloworld-volume:/tmp/volume -p 8080:8080 --name springboot-helloworld-docker-volumes-named-container springboot-helloworld-docker-volumes-named-image`
+1. Stop container with `docker stop springboot-helloworld-docker-volumes-pathed-container`
+1. Remove container with `docker rm springboot-helloworld-docker-volumes-pathed-container`
+1. Build and start container with `docker run -d -v /tmp/computer/volume:/tmp/volume -p 8080:8080 --name springboot-helloworld-docker-volumes-pathed-container springboot-helloworld-docker-volumes-pathed-image`
 1. Visit (expected one Hello World message) `http://localhost:8080/not-stored-as-volume`
 1. Visit (expected **two** Hello World messages) `http://localhost:8080/stored-as-volume`
-1. (Optional) Check if volume exists with `docker volume ls`
-1. (Optional) Check volume details with `docker volume inspect helloworld-volume`
 1. Clean up environment:
 
-    * Stop container with `docker stop springboot-helloworld-docker-volumes-named-container`
-    * Remove container with `docker rm springboot-helloworld-docker-volumes-named-container`
-    * Remove image with `docker rmi springboot-helloworld-docker-volumes-named-image`
-    * Remove volume with `docker volume rm helloworld-volume`
+    * Stop container with `docker stop springboot-helloworld-docker-volumes-pathed-container`
+    * Remove container with `docker rm springboot-helloworld-docker-volumes-pathed-container`
+    * Remove image with `docker rmi springboot-helloworld-docker-volumes-pathed-image`
 
 
 USAGE - SHARING
@@ -73,20 +70,17 @@ USAGE - SHARING
 
 Usage steps:
 1. Build package with `mvn clean package -D maven.test.skip`
-1. Build image with `docker build -f Dockerfile-Fast -t springboot-helloworld-docker-volumes-named-image .`
-1. Build and start container with `docker run -d -v helloworld-volume:/tmp/volume -p 8080:8080 --name springboot-helloworld-docker-volumes-named-container springboot-helloworld-docker-volumes-named-image`
+1. Build image with `docker build -f Dockerfile-Fast -t springboot-helloworld-docker-volumes-pathed-image .`
+1. Build and start container with `docker run -d -v /tmp/computer/volume:/tmp/volume -p 8080:8080 --name springboot-helloworld-docker-volumes-pathed-container springboot-helloworld-docker-volumes-pathed-image`
 1. Visit (expected one Hello World message) `http://localhost:8080/not-stored-as-volume`
 1. Visit (expected one Hello World message) `http://localhost:8080/stored-as-volume`
-1. Build and start container with `docker run -d -v helloworld-volume:/tmp/volume -p 8181:8080 --name springboot-helloworld-docker-volumes-named-container-2 springboot-helloworld-docker-volumes-named-image`
+1. Build and start container with `docker run -d -v /tmp/computer/volume:/tmp/volume -p 8181:8080 --name springboot-helloworld-docker-volumes-pathed-container-2 springboot-helloworld-docker-volumes-pathed-image`
 1. Visit (expected one Hello World message) `http://localhost:8181/not-stored-as-volume`
 1. Visit (expected **two** Hello World messages) `http://localhost:8181/stored-as-volume`
-1. (Optional) Check if volume exists with `docker volume ls`
-1. (Optional) Check volume details with `docker volume inspect helloworld-volume`
 1. Clean up environment:
 
-    * Stop container with `docker stop springboot-helloworld-docker-volumes-named-container`
-    * Remove container with `docker rm springboot-helloworld-docker-volumes-named-container`
-    * Stop container with `docker stop springboot-helloworld-docker-volumes-named-container-2`
-    * Remove container with `docker rm springboot-helloworld-docker-volumes-named-container-2`
-    * Remove image with `docker rmi springboot-helloworld-docker-volumes-named-image`
-    * Remove volume with `docker volume rm helloworld-volume`
+    * Stop container with `docker stop springboot-helloworld-docker-volumes-pathed-container`
+    * Remove container with `docker rm springboot-helloworld-docker-volumes-pathed-container`
+    * Stop container with `docker stop springboot-helloworld-docker-volumes-pathed-container-2`
+    * Remove container with `docker rm springboot-helloworld-docker-volumes-pathed-container-2`
+    * Remove image with `docker rmi springboot-helloworld-docker-volumes-pathed-image`

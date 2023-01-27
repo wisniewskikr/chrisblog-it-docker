@@ -31,12 +31,11 @@ public class HelloWorldController {
 	@RequestMapping(value="/")
 	public String helloWorld() throws IOException {
 		
-		Path pathFile = Paths.get(folderPath + "/" + fileName);
-		System.out.println(pathFile.toAbsolutePath().toString());
+		Path filePath = Paths.get(folderPath + "/" + fileName);
 		Files.createDirectories(Paths.get(folderPath));
-		fileService.writeToFile(pathFile.toString(), "Hello World!");
-		String message = fileService.readFromFile(pathFile.toString());
-		return message;
+		fileService.writeToFile(filePath.toString(), "Hello World!");
+		return fileService.readFromFile(filePath.toString());
+
 		
 	}
 	

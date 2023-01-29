@@ -1,3 +1,14 @@
+Usage steps:
+1. Build package with `mvn clean package -D maven.test.skip`
+1. Build Service Display image with `docker build -f service-helloworld-display/Dockerfile-Fast -t wisniewskikr/springcloud-kubernetes-multiple-service-helloworld-display-image ./service-helloworld-display`
+1. Push Service Display image  with `docker push wisniewskikr/springcloud-kubernetes-multiple-service-helloworld-display-image`
+1. Build Service Storage image with `docker build -f service-helloworld-storage/Dockerfile-Fast -t wisniewskikr/springcloud-kubernetes-multiple-service-helloworld-storage-image ./service-helloworld-storage`
+1. Push Service Storage image  with `docker push wisniewskikr/springcloud-kubernetes-multiple-service-helloworld-storage-image`
+
+
+
+
+
 DESCRIPTION
 -----------
 

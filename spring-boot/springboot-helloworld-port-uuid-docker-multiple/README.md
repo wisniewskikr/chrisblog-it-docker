@@ -47,31 +47,19 @@ USAGE - FAST BUILD IMAGE AND RUN CONTAINER LOCALLY (FAST BUT REQUIRES LOCALLY IN
 
 Usage steps:
 1. Build package with `mvn clean package -D maven.test.skip`
-1. Build image FE with **docker build -t {image-name} ./{project-folder}** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-fe/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-fe-image ./springboot-helloworld-port-uuid-docker-multiple-fe`
-1. Build and start container FE with **docker run -d -p {port}:{port} -e {env-variable-name}={env-variable-value} --name {container-name} {image-name}**. For instance with `docker run -d -p 8080:8080 -e helloworld.be.url='http://springboot-helloworld-port-uuid-docker-multiple-be-container:9090' --name springboot-helloworld-port-uuid-docker-multiple-fe-container springboot-helloworld-port-uuid-docker-multiple-fe-image`
-1. Build image BE with **docker build -t {image-name} ./{project-folder}** . For instance with `docker build -f springboot-helloworld-port-uuid-docker-multiple-be/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-be-image ./springboot-helloworld-port-uuid-docker-multiple-be`
-1. Build and start container BE with **docker run -d -p {port}:{port} --name {container-name} {image-name}**. For instance with `docker run -d -p 9090:9090 --name springboot-helloworld-port-uuid-docker-multiple-be-container springboot-helloworld-port-uuid-docker-multiple-be-image`
-1. Create network with **docker network create {network-name}**. For instance with `docker network create helloworld-network`
-1. Connect container FE with network with **docker network connect {network-name} {fe-container-name}**. For instance with `docker network connect helloworld-network springboot-helloworld-port-uuid-docker-multiple-fe-container`
-1. Connect container BE with network with **docker network connect {network-name} {be-container-name}**. For instance with `docker network connect helloworld-network springboot-helloworld-port-uuid-docker-multiple-be-container`
+1. Create network with `docker network create helloworld-network`
+1. Build image FE with `docker build -f springboot-helloworld-port-uuid-docker-multiple-fe/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-fe-image ./springboot-helloworld-port-uuid-docker-multiple-fe`
+1. Build and start container FE with `docker run -d -p 8080:8080 --network helloworld-network -e helloworld.be.url='http://springboot-helloworld-port-uuid-docker-multiple-be-container:9090' --name springboot-helloworld-port-uuid-docker-multiple-fe-container springboot-helloworld-port-uuid-docker-multiple-fe-image`
+1. Build image BE with `docker build -f springboot-helloworld-port-uuid-docker-multiple-be/Dockerfile-Fast -t springboot-helloworld-port-uuid-docker-multiple-be-image ./springboot-helloworld-port-uuid-docker-multiple-be`
+1. Build and start container BE with `docker run -d -p 9090:9090 --network helloworld-network --name springboot-helloworld-port-uuid-docker-multiple-be-container springboot-helloworld-port-uuid-docker-multiple-be-image`
 1. Visit `http://localhost:8080`
-1. Display container FE logs (optional)
-
-    * Display logs with **docker logs {container-name}**. For instance with `docker logs springboot-helloworld-port-uuid-docker-multiple-fe-container`
-    * Stop displaying logs with `ctrl + c`
-1. Display container BE logs (optional)
-
-    * Display logs with **docker logs {container-name}**. For instance with `docker logs springboot-helloworld-port-uuid-docker-multiple-be-container`
-    * Stop displaying logs with `ctrl + c`
 1. Clean up environment:
 
-    * Stop container FE with **docker stop {container-name}**. For instance with `docker stop springboot-helloworld-port-uuid-docker-multiple-fe-container`
-    * Remove container FE with **docker rm {container-name}**. For instance with `docker rm springboot-helloworld-port-uuid-docker-multiple-fe-container`
-    * Remove image FE with **docker rmi {image-name}**. For instance with `docker rmi springboot-helloworld-port-uuid-docker-multiple-fe-image`
-    * Stop container BE with **docker stop {container-name}**. For instance with `docker stop springboot-helloworld-port-uuid-docker-multiple-be-container`
-    * Remove container BE with **docker rm {container-name}**. For instance with `docker rm springboot-helloworld-port-uuid-docker-multiple-be-container`
-    * Remove image BE with **docker rmi {image-name}**. For instance with `docker rmi springboot-helloworld-port-uuid-docker-multiple-be-image`
-    * Remove network with **docker network rm {network-name}**. For instance with `docker network rm helloworld-network`
+    * Remove container FE with `docker rm -f springboot-helloworld-port-uuid-docker-multiple-fe-container`
+    * Remove image FE with `docker rmi -f springboot-helloworld-port-uuid-docker-multiple-fe-image`
+    * Remove container BE with `docker rm -f springboot-helloworld-port-uuid-docker-multiple-be-container`
+    * Remove image BE with `docker rmi springboot-helloworld-port-uuid-docker-multiple-be-image`
+    * Remove network with `docker network rm helloworld-network`
     
 
 USAGE - SLOW BUILD IMAGE AND RUN CONTAINER LOCALLY (SLOW BUT DOES NOT REQUIRE LOCALLY INSTALLED JAVA AND MAVEN)

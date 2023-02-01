@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-loadbalancer
+  labels:
+    app: deployment-loadbalancer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: container-loadbalancer
+  template:
+    metadata:
+      labels:
+        app: container-loadbalancer
+    spec:
+      containers:
+      - name: container-loadbalancer
+        image: wisniewskikr/loadbalancer-image
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        env:
+        - name: spring.application.name
+          value: "service-loadbalancer"
+        - name: server.port
+          value: "8080"
+        - name: management.endpoints.jmx.exposure.include
+          value: "health,info,env,beans"
+        - name: management.endpoints.web.exposure.include
+          value: "health,info,env,beans"
+        - name: helloworld.url
+          value: "http://service-helloworld-kubernetes.default.svc.cluster.local/"
+        readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 15
+        livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 15
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-loadbalancer-kubernetes
+spec:
+  type: LoadBalancer
+  selector:
+    app: container-loadbalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

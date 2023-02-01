@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.dtos.HelloWorldDto;
 
 @RestController
-public class StorageController {
+public class HelloWorldController {
 	
 private Environment environment;
 	
@@ -17,7 +17,7 @@ private Environment environment;
 	private String message;
 	
 	@Autowired
-	public StorageController(Environment environment) {
+	public HelloWorldController(Environment environment) {
 		this.environment = environment;
 	}
 

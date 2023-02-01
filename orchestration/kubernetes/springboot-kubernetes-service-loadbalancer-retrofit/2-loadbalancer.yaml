@@ -54,6 +54,7 @@ spec:
   selector:
     app: container-loadbalancer
   ports:
-    - protocol: TCP
-      port: 8080
+    - name: 80-8080
+      protocol: TCP
+      port: 80
       targetPort: 8080

@@ -7,17 +7,26 @@ public class HelloWorldJson {
 	private String message;
 	
 	@JsonProperty(value = "LoadBalancer Service port")
-	private String displayPort;
+	private String loadBalancerPort;
+	
+	@JsonProperty(value = "LoadBalancer Service uuid")
+	private String loadBalancerUuid;	
 	
 	@JsonProperty(value = "HelloWorld Service port")
-	private String storagePort;	
+	private String helloWorldPort;
+	
+	@JsonProperty(value = "HelloWorld Service uuid")
+	private String helloWorldUuid;
 	
 	public HelloWorldJson() {}
 
-	public HelloWorldJson(String message, String displayPort, String storagePort) {
+	public HelloWorldJson(String message, String loadBalancerPort, String loadBalancerUuid, String helloWorldPort,
+			String helloWorldUuid) {
 		this.message = message;
-		this.displayPort = displayPort;
-		this.storagePort = storagePort;
+		this.loadBalancerPort = loadBalancerPort;
+		this.loadBalancerUuid = loadBalancerUuid;
+		this.helloWorldPort = helloWorldPort;
+		this.helloWorldUuid = helloWorldUuid;
 	}
 
 	public String getMessage() {
@@ -28,20 +37,36 @@ public class HelloWorldJson {
 		this.message = message;
 	}
 
-	public String getDisplayPort() {
-		return displayPort;
+	public String getLoadBalancerPort() {
+		return loadBalancerPort;
 	}
 
-	public void setDisplayPort(String displayPort) {
-		this.displayPort = displayPort;
+	public void setLoadBalancerPort(String loadBalancerPort) {
+		this.loadBalancerPort = loadBalancerPort;
 	}
 
-	public String getStoragePort() {
-		return storagePort;
+	public String getLoadBalancerUuid() {
+		return loadBalancerUuid;
 	}
 
-	public void setStoragePort(String storagePort) {
-		this.storagePort = storagePort;
-	}	
+	public void setLoadBalancerUuid(String loadBalancerUuid) {
+		this.loadBalancerUuid = loadBalancerUuid;
+	}
+
+	public String getHelloWorldPort() {
+		return helloWorldPort;
+	}
+
+	public void setHelloWorldPort(String helloWorldPort) {
+		this.helloWorldPort = helloWorldPort;
+	}
+
+	public String getHelloWorldUuid() {
+		return helloWorldUuid;
+	}
+
+	public void setHelloWorldUuid(String helloWorldUuid) {
+		this.helloWorldUuid = helloWorldUuid;
+	}
 	
 }

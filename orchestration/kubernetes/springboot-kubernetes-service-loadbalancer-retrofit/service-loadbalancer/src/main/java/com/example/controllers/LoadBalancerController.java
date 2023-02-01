@@ -29,9 +29,10 @@ public class LoadBalancerController {
 	@RequestMapping(value="/")
 	public HelloWorldJson helloWorld() {
 		
-		String port = environment.getProperty("local.server.port");		
+		String port = environment.getProperty("local.server.port");
+		String uuid = System.getProperty("uuidApplication");
 		HelloWorldDto helloWorldDto = getHelloWorldDto();		
-		return new HelloWorldJson(helloWorldDto.getMessage(), port, helloWorldDto.getPort());
+		return new HelloWorldJson(helloWorldDto.getMessage(), port, uuid, helloWorldDto.getPort(), helloWorldDto.getUuid());
 		
 	}
 	

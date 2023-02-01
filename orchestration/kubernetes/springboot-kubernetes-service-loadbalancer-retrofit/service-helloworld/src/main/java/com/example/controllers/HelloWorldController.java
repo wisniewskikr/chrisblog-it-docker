@@ -25,7 +25,8 @@ private Environment environment;
 	public HelloWorldDto greeting() {
 		
 		String port = environment.getProperty("local.server.port");
-		return new HelloWorldDto(message, port);
+		String uuid = System.getProperty("uuidApplication");
+		return new HelloWorldDto(message, port, uuid);
 		
 	}
 	

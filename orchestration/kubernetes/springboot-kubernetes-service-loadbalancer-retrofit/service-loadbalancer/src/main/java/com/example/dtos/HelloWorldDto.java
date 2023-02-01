@@ -4,12 +4,14 @@ public class HelloWorldDto {
 	
 	private String message;
 	private String port;
+	private String uuid;
 	
 	public HelloWorldDto() {}
 
-	public HelloWorldDto(String message, String port) {		
+	public HelloWorldDto(String message, String port, String uuid) {		
 		this.message = message;
 		this.port = port;
+		this.uuid = uuid;
 	}
 	
 	public String getMessage() {
@@ -24,6 +26,13 @@ public class HelloWorldDto {
 	}
 	public void setPort(String port) {
 		this.port = port;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}	
 	
 }

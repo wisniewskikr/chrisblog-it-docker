@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>springboot-kubernetes-service-loadbalancer-advanced</artifactId>
+    <artifactId>springboot-kubernetes-service-loadbalancer-retrofit</artifactId>
     <version>0.1.0</version>
     <modules>
     	<module>service-helloworld</module>

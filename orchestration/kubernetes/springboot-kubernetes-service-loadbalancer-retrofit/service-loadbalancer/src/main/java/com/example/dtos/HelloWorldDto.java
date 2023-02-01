@@ -1,13 +1,13 @@
-package com.example.jsons;
+package com.example.dtos;
 
-public class StorageJson {
+public class HelloWorldDto {
 	
 	private String message;
 	private String port;
 	
-	public StorageJson() {}
+	public HelloWorldDto() {}
 
-	public StorageJson(String message, String port) {		
+	public HelloWorldDto(String message, String port) {		
 		this.message = message;
 		this.port = port;
 	}

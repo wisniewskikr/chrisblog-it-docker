@@ -2,19 +2,19 @@ package com.example.jsons;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class DisplayJson {
+public class HelloWorldJson {
 	
 	private String message;
 	
-	@JsonProperty(value = "display port")
+	@JsonProperty(value = "LoadBalancer Service port")
 	private String displayPort;
 	
-	@JsonProperty(value = "storage port")
+	@JsonProperty(value = "HelloWorld Service port")
 	private String storagePort;	
 	
-	public DisplayJson() {}
+	public HelloWorldJson() {}
 
-	public DisplayJson(String message, String displayPort, String storagePort) {
+	public HelloWorldJson(String message, String displayPort, String storagePort) {
 		this.message = message;
 		this.displayPort = displayPort;
 		this.storagePort = storagePort;

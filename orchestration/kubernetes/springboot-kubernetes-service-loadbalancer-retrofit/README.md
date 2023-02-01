@@ -1,3 +1,44 @@
+USAGE
+-----
+
+> **NOTE:**  Please open Command Line tool as **administrator** on **main folder of project**.
+
+Usage steps:
+1. Connect Minikube and Docker with (Windows) `minikube docker-env | Invoke-Expression`
+1. Build package with `mvn clean package -D maven.test.skip`
+1. Build Service HelloWorld image with `docker build -f service-helloworld/Dockerfile-Fast -t wisniewskikr/helloworld-image ./service-helloworld`
+1. Build Service LoadBalancer image with `docker build -f service-loadbalancer/Dockerfile-Fast -t wisniewskikr/loadbalancer-image ./service-loadbalancer`
+1. (Optional) Check images in Minikube:
+
+     * Run Minikube SSH with `minikube ssh`
+     * Display Minikube images (expected new images from this project) with `docker images`
+     * Close Minikube SSH with `exit`
+
+1. Start HelloWorld service with `kubectl apply -f 1-helloworld.yaml`
+1. Start LoadBalancer service with `kubectl apply -f 2-loadbalancer.yaml`
+1. Launch LoadBalancer Service in browser with `minikube service service-loadbalancer-show`
+1. (Optional) Launch HelloWorld Service in browser with `minikube service service-helloworld-show`
+1. Clean up environment:
+    
+    * Remove HelloWorld service with `kubectl delete -f 1-helloworld.yaml`
+    * Remove LoadBalancer service with `kubectl delete -f 2-loadbalancer.yaml`
+    * Remove Service HelloWorld image with `docker rmi wisniewskikr/helloworld-image`
+    * Remove Service LoadBalancer image with `docker rmi wisniewskikr/loadbalancer-image`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 DESCRIPTION
 -----------
 

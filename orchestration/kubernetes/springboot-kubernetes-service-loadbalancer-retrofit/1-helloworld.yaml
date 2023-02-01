@@ -23,6 +23,8 @@ spec:
         env:
         - name: spring.application.name
           value: "service-helloworld"
+        - name: server.port
+          value: "9090"
         - name: management.endpoints.jmx.exposure.include
           value: "health,info,env,beans"
         - name: management.endpoints.web.exposure.include

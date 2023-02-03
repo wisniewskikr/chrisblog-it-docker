@@ -2,18 +2,11 @@ DESCRIPTION
 -----------
 
 ##### Goal
-The goal of this project is to present how to use **pathed volumes** in **Docker** based on **Java** application using **Spring Boot** framework.
+The goal of this project is to present how to use **Persistent Volumes** in **Kubernetes** based on **Java** application using **Spring Boot** framework.
 
-**Docker Volumes** enable mapping folder from container to folder in the computer. Advantages:
-* **Persistence**: data still exist after removing container and creating new one
-* **Sharing**: data can be shared by different containers
+**Persistent Volumes** stores some data on disc.
 
-There are three types of volumes:
-* **Anonymous**: created by Docker
-* **Named**: developer identifies volume by it's name
-* **Pathed**: developer indicates exact path of folder on computer where container folder should be mapped
-
-This project is build by using Docker orchestration tool **Kubernetes**.
+**Persistent Volume Claims** connects Persistent Volumes with Pods. 
 
 ##### Flow
 The following flow takes place in this project:

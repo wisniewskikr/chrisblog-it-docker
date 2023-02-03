@@ -13,7 +13,7 @@ There are three types of volumes:
 * **Named**: developer identifies volume by it's name
 * **Pathed**: developer indicates exact path of folder on computer where container folder should be mapped
 
-This project is build by using Docker orchestration tool **Docker Compose**.
+This project is build by using Docker orchestration tool **Kubernetes**.
 
 ##### Flow
 The following flow takes place in this project:
@@ -50,26 +50,60 @@ PRECONDITIONS
 USAGE - PERSISTENCE
 -------------------
 
-Usage steps:
-1. Build package with `mvn clean package -D maven.test.skip`
-1. Start applications with `docker-compose -f docker-compose-fast.yml up -d --build`
-1. Visit (expected one Hello World message) `http://localhost:8080/not-stored-as-volume`
-1. Visit (expected one Hello World message) `http://localhost:8080/stored-as-volume`
-1. Stop applications with `docker-compose down`
-1. Start applications with `docker-compose -f docker-compose-fast.yml up -d --build`
-1. Visit (expected one Hello World message) `http://localhost:8080/not-stored-as-volume`
-1. Visit (expected **two** Hello World messages) `http://localhost:8080/stored-as-volume`
-1. Clean up environment with `docker-compose down --rmi all`
+> **NOTE:**  Please open Command Line tool as **administrator** on **main folder of project**.
 
+Usage steps:
+1. Connect Minikube and Docker with (Windows) `minikube docker-env | Invoke-Expression`
+1. Build package with `mvn clean package -D maven.test.skip`
+1. Build service image with `docker build -f ./Dockerfile-Fast -t wisniewskikr/helloworld-image .`
+1. (Optional) Check images in Minikube:
+
+     * Run Minikube SSH with `minikube ssh`
+     * Display Minikube images (expected new images from this project) with `docker images`
+     * Close Minikube SSH with `exit`
+
+1. Start services with `kubectl apply -f kubernetes.yaml`
+1. (Optional) Check status of services with `kubectl get pods`
+1. Launch HelloWorld 1 service in browser with `minikube service helloworld-service-1`
+1. Visit (expected one Hello World message) `http://{service-1}/not-stored-as-volume`
+1. Visit (expected one Hello World message) `http://{service-1}/stored-as-volume`
+1. Stop services with `kubectl delete -f kubernetes.yaml`
+1. Start services with `kubectl apply -f kubernetes.yaml`
+1. Launch HelloWorld 1 service in browser with `minikube service helloworld-service-1`
+1. Visit (expected one Hello World message) `http://{service-1}/not-stored-as-volume`
+1. Visit (expected **two** Hello World messages) `http://{service-1}/stored-as-volume`
+1. Clean up environment:
+        
+    * Remove Discovery service with `kubectl delete -f kubernetes.yaml`    
+    * Remove Service Config image with `docker rmi wisniewskikr/helloworld-image`
+    
 
 USAGE - SHARING
 ---------------
 
+> **NOTE:**  Please open Command Line tool as **administrator** on **main folder of project**.
+
 Usage steps:
+1. Connect Minikube and Docker with (Windows) `minikube docker-env | Invoke-Expression`
 1. Build package with `mvn clean package -D maven.test.skip`
-1. Start applications with `docker-compose -f docker-compose-fast.yml up -d --build`
-1. Visit (expected one Hello World message) `http://localhost:8080/not-stored-as-volume`
-1. Visit (expected one Hello World message) `http://localhost:8080/stored-as-volume`
-1. Visit (expected one Hello World message) `http://localhost:8181/not-stored-as-volume`
-1. Visit (expected **two** Hello World messages) `http://localhost:8181/stored-as-volume`
-1. Clean up environment with `docker-compose down --rmi all`
+1. Build service image with `docker build -f ./Dockerfile-Fast -t wisniewskikr/helloworld-image .`
+1. (Optional) Check images in Minikube:
+
+     * Run Minikube SSH with `minikube ssh`
+     * Display Minikube images (expected new images from this project) with `docker images`
+     * Close Minikube SSH with `exit`
+
+1. Start services with `kubectl apply -f kubernetes.yaml`
+1. (Optional) Check status of services with `kubectl get pods`
+1. Launch HelloWorld 1 service in browser with `minikube service helloworld-service-1`
+1. Visit (expected one Hello World message) `http://{service-1}/not-stored-as-volume`
+1. Visit (expected one Hello World message) `http://{service-1}/stored-as-volume`
+1. Stop services with `kubectl delete -f kubernetes.yaml`
+1. Start services with `kubectl apply -f kubernetes.yaml`
+1. Launch HelloWorld 2 service in browser with `minikube service helloworld-service-2`
+1. Visit (expected one Hello World message) `http://{service-2}/not-stored-as-volume`
+1. Visit (expected **two** Hello World messages) `http://{service-2}/stored-as-volume`
+1. Clean up environment:
+        
+    * Remove Discovery service with `kubectl delete -f kubernetes.yaml`    
+    * Remove Service Config image with `docker rmi wisniewskikr/helloworld-image`

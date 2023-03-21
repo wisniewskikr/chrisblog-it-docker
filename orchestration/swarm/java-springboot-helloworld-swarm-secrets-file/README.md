@@ -12,9 +12,13 @@ Usage steps:
 1. Create secret as parameter with `echo "Secret Hello World!" | docker secret create secret_message secret.txt`
      * (Optional) Verify Secret with `docker secret ls`
      * (Optional) Verify Secret with `docker secret inspect secret_message`
-1. Create Docker Swarm Service with `docker service create --name java-springboot-helloworld-service --publish 8080:8080 --secret secret_message -e service.helloworld.message=/run/secrets/secret_message wisniewskikr/java-springboot-helloworld`
+1. Create Docker Swarm Service with `docker service create --name java-springboot-helloworld-service --publish 8080:8080 --secret secret_message  wisniewskikr/java-springboot-helloworld`
      * (Optional) Check if Service exists with `docker service ls`
-1. Using browser visit `http://localhost:8080`
+     * (Optional) Using browser visit `http://localhost:8080`
+1. Get **CONTAINER ID** with `docker ps -a`
+1. Run command line tool in Container with `docker exec -it {CONTAINER ID} sh`
+1. Display secret with `cat /run/secrets/secret_message`
+1. Stop command line tool in Container with `exit` 
 1. Clean up environment 
      * Remove Docker Swarm Service with `docker service rm java-springboot-helloworld-service`
      * Remove Secret with `docker secret rm secret_message`
@@ -26,6 +30,8 @@ DESCRIPTION
 
 ##### Goal
 The goal of this project is to present how to use **secrets** created as **file** in **Java Spring Boot** application. This application is deployed as Docker Image in **Docker** public repository using **Docker Swarm** tool.
+
+> **NOTE** Please be aware that **secrets in Docker Swarm work in specific way**. Secrets are not values but files in specific location - **/run/secrets**. And your **application has to read these Secrets from this location** to get secret values.
 
 ##### Terminology
 Terminology explanation:

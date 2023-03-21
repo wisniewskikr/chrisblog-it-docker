@@ -4,7 +4,7 @@ USAGE
 > This usage assumes that you have installed following tools on your local machine: **Java**, **Maven**, **Git**, **Docker** and **Docker Compose**. Moreover **Docker** is up and running.
 
 Usage steps:
-1. Build package with `mvn clean package -Dmaven.test.skip`
+1. Build package with `mvn clean package -D maven.test.skip`
 1. Start application with `docker-compose -f docker-compose-fast.yml up -d --build`
 1. Visit `http://localhost:8080`
 1. Display container logs (optional)

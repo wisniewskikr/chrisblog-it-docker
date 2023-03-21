@@ -54,9 +54,9 @@ PRECONDITIONS
 ##### Preconditions - Tools
 * Installed **Operating System** (tested on Windows 10)
 * Installed **Docker** (tested on version 20.10.23)
-* (Optional) Verified **Java Spring Boot Source Code**: `https://github.com/wisniewskikr/java-springboot-helloworld`
-* (Optional) Verified **Docker Image**: `https://hub.docker.com/repository/docker/wisniewskikr/java-springboot-helloworld/general`
 
 ##### Preconditions - Actions
+* (Optional) Verified **Java Spring Boot Source Code**: `https://github.com/wisniewskikr/java-springboot-helloworld`
+* (Optional) Verified **Docker Image**: `https://hub.docker.com/repository/docker/wisniewskikr/java-springboot-helloworld/general`
 * Download **Source Code** (using Git or in any other way) 
 * Open any **Command Line** tool (for instance "Windonw PowerShell" on Windows OS) on downloaded **project's main folder**

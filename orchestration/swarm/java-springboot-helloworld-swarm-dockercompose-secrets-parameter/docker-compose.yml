@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  helloworld:
+    image: wisniewskikr/java-springboot-helloworld
+    secrets:
+     - secret_message
+    ports:
+      - 8080:8080
+    networks:
+      - helloworld-network
+      
+secrets:
+  secret_message:
+    external: true
+
+networks:
+  helloworld-network:

@@ -40,4 +40,13 @@ To test if Kind is properly installed please proceed with following steps:
 1. Start **Docker** tool
 1. Open any **command line tool** in **administration mode**
 1. Start Kubernetes cluster with `kind create cluster`
-1. Remove Kubernetes cluster with `kind delete cluster`
+1. Remove Kubernetes cluster with `kind delete cluster --name kind`
+
+
+USEFUL COMMANDS
+---------------
+
+Useful commands for Kind:
+* **Create cluster** with `kind create cluster`
+* **Delete cluster** with `kind delete cluster --name {cluster-name}`
+* **List of clusters** with `kind get clusters`

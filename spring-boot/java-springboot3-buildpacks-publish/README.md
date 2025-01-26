@@ -7,12 +7,24 @@ EXAMPLE
 
 ![My Image](readme-images/image-03.png)
 
+![My Image](readme-images/image-04.png)
+
+![My Image](readme-images/image-05.png)
+
+![My Image](readme-images/image-06.png)
+
+![My Image](readme-images/image-07.png)
+
+![My Image](readme-images/image-08.png)
+
+![My Image](readme-images/image-09.png)
+
 
 DESCRIPTION
 -----------
 
 ##### Goal
-The goal of this project is to present how to create Docker image af an application using **build packs** in **Java** programming language with usage **Spring Boot 3** framework.
+The goal of this project is to present how to create and **publish** to Docker Hub a Docker image af an application using **build packs** in **Java** programming language with usage **Spring Boot 3** framework.
 
 ##### Terminology
 Terminology explanation:
@@ -37,7 +49,9 @@ Usage steps:
 1. Start **Docker** tool
 1. In a command line tool **build Docker image** with `mvn spring-boot:build-image`
 1. Open **Docker Desktop**
-   * Exapected **Docker image** with name **wisniewskikr/java-springboot3-buildpacks:0.1.0**
+   * Exapected **Docker image** with name **wisniewskikr/java-springboot3-buildpacks-publish:0.1.0**
+1. Open **Docker Hub** with `https://hub.docker.com/`
+   * Exapected **Docker image** with name **wisniewskikr/java-springboot3-buildpacks-publish:0.1.0**
 1. Clean up environment 
      * Stop **Docker** tool
 
@@ -46,4 +60,8 @@ IMPLEMENTATION
 --------------
 
 Implementation steps:
-1. Update **pom.xml** file with plugin **spring-boot-maven-plugin** with configuration **wisniewskikr/${project.artifactId}:${project.version}**
+1. Update **pom.xml** file with plugin **spring-boot-maven-plugin** with configuration
+   * Attribute **name** as **wisniewskikr/${project.artifactId}:${project.version}**
+   * Attriubute **publish** as **true**
+   * Attribute **publishRegistry/username** as **Docker Hub username**
+   * Attribute **publishRegistry/username** as **Docker Hub password** 

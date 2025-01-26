@@ -20,41 +20,30 @@ Terminology explanation:
 * **Java**: Java is a high-level, object-oriented programming language known for its platform independence, achieved through the Java Virtual Machine (JVM). It is widely used for developing web, mobile, desktop, and enterprise applications, emphasizing simplicity, security, and portability. "Write once, run anywhere" is its core principle.
 * **Maven**: Maven is a build automation and dependency management tool for Java projects, streamlining project builds, managing libraries, and ensuring consistent project configurations.
 * **Spring Boot**: Spring Boot is a framework for building Java-based applications that simplifies development by providing auto-configuration, embedded servers, and production-ready tools, enabling developers to create standalone, production-ready applications with minimal configuration.
+* **Build Packs**: A buildpack is a set of scripts used in platform-as-a-service (PaaS) environments, like Heroku or Cloud Foundry, to automate the process of detecting, building, and configuring applications. Buildpacks identify the language or framework of an app, install necessary dependencies, and prepare the app for deployment.
 
 
 USAGE
 -----
 
-> Please be aware that following tools should be installed on your local PC: **Java**, **Maven** and **Git**. 
+> Please **clone/download** project, open **project's main folder** in your favorite **command line tool** and then **proceed with steps below**.
 
-> Please **clone/download** project, open **project's main folder** in your favorite **command line tool** and then **proceed with steps below**. 
+> **Prerequisites**:  
+* **Operating System** (tested on Windows 11)
+* **Git** (tested on version 2.33.0.windows.2)
+* **Docker** (tested on version 4.33.1)  
 
 Usage steps:
-1. In a command line tool start application with `mvn spring-boot:run`
-1. In a browser visit `http://localhost:8080`
-   * Expected JSON **{"message":"Hello World!"}**
+1. Start **Docker** tool
+1. In a command line tool **build Docker image** with `mvn spring-boot:build-image`
+1. Open **Docker Desktop**
+   * Exapected **Docker image** with name **wisniewskikr/java-springboot3-buildpacks:0.1.0**
 1. Clean up environment 
-     * In a command line tool stop application with `ctrl + C`
+     * Stop **Docker** tool
 
 
-USAGE DOCKER
+IMPLEMENTATION
 --------------
 
-> Please be aware that following tools should be installed in advance on your computer: **Docker**. Docker tool has to be **up and running**. 
-
-> Please **clone/download** project, open **project's main folder** in your favorite **command line tool** and then **proceed with steps below**. 
-
-Usage steps:
-1. In a command line tool build Docker image with `docker build -t java-springboot3-api-rest-helloworld-image .`
-1. (Optional) In a command line tool check list of all images with `docker images`
-   * Expected **list of all docker images** downloaded on a computer
-1. In a command line tool start Docker container with `docker run -d -p 8080:8080 --name java-springboot3-api-rest-helloworld-container java-springboot3-api-rest-helloworld-image`
-1. (Optional) In a command line tool check list of all containers with `docker ps -a`
-   * Expected **list of all docker containers** installed on a computer
-1. In a http browser (e.g. Chrome) visit `http://localhost:8080`
-   * Expected JSON **{"message": "Hello World!"}**
-1. (Optional) In a command line tool check application logs with `docker logs java-springboot3-api-rest-helloworld-container`
-   * Expected **application logs**
-1. Clean up environment 
-     * In a command line tool stop and remove Docker container with `docker rm -f java-springboot3-api-rest-helloworld-container`
-     * In a command line tool stop and remove Docker image with `docker rmi java-springboot3-api-rest-helloworld-image`
+Implementation steps:
+1. Update **pom.xml** file with plugin **spring-boot-maven-plugin** with configuration **wisniewskikr/${project.artifactId}:${project.version}**

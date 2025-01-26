@@ -14,6 +14,7 @@
 
 	<properties>
 		<java.version>23</java.version>
+		<docker.password>${env.DOCKER_PASSWORD}</docker.password>
 	</properties>
 	
 	<dependencies>
@@ -43,7 +44,7 @@
 					<docker>
 						<publishRegistry>
 							<username>wisniewskikr</username>
-							<password></password>
+							<password>${docker.password}</password>
 						</publishRegistry>
 					</docker>
 				</configuration>				

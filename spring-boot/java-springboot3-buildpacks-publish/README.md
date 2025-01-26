@@ -19,6 +19,12 @@ EXAMPLE
 
 ![My Image](readme-images/image-09.png)
 
+![My Image](readme-images/image-10.png)
+
+![My Image](readme-images/image-11.png)
+
+![My Image](readme-images/image-12.png)
+
 
 DESCRIPTION
 -----------
@@ -64,4 +70,6 @@ Implementation steps:
    * Attribute **name** as **wisniewskikr/${project.artifactId}:${project.version}**
    * Attriubute **publish** as **true**
    * Attribute **publishRegistry/username** as **Docker Hub username**
-   * Attribute **publishRegistry/username** as **Docker Hub password** 
+   * Attribute **publishRegistry/username** as **Docker Hub password**
+1. Save **Docker Password** as **environment variable** with value **DOCKER_PASSWORD**
+1. Update **pom.xml** with property **<docker.password>${env.DOCKER_PASSWORD}</docker.password>**

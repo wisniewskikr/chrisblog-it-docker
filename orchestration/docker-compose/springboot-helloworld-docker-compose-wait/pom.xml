@@ -8,8 +8,8 @@
     <artifactId>springboot-helloworld-port-uuid-multiple</artifactId>
     <version>0.1.0</version>
     <modules>
-    	<module>springboot-communication-restclient-multiple-first</module>
-        <module>springboot-communication-restclient-multiple-second</module>
+    	<module>springboot-helloworld-docker-compose-wait-first</module>
+        <module>springboot-helloworld-docker-compose-wait-second</module>
     </modules>
     <packaging>pom</packaging>
 

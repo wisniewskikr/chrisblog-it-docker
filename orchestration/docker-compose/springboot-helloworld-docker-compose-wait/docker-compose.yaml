@@ -8,6 +8,8 @@
       dockerfile: Dockerfile
     environment:
       API_SECOND_URL: http://second:9090/api/v1
+      WAIT_HOSTS: second:9090
+      WAIT_TIMEOUT: 60
     ports:
       - 8080:8080
 

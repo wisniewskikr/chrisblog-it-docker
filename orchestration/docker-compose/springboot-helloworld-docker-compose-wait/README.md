@@ -8,7 +8,7 @@ DESCRIPTION
 -----------
 
 ##### Goal
-The goal of this project is to present how to implement **communication** between two **REST API** applications with usage **Java** programming language and **Spring Boot 3** framework. Class **RestClient** is used for this communication.
+The goal of this project is to present how to implement **docker-compose-wait** library between two **REST API** applications with usage **Java** programming language and **Spring Boot 3** framework. Library docker-compose-wait pauses building one docker container until second docker container is fully working. In this example appliation "first" is paused until application "second" is run successfully.
 
 ##### Elements
 This project consists of following elements:
@@ -28,7 +28,7 @@ Terminology explanation:
 * **Java**: Java is a high-level, object-oriented programming language known for its platform independence, achieved through the Java Virtual Machine (JVM). It is widely used for web, mobile, and enterprise applications. Java follows the "write once, run anywhere" (WORA) principle, making it a popular choice for cross-platform development.
 * **Spring Boot**: Spring Boot is a Java-based framework that simplifies the development of stand-alone, production-ready Spring applications by providing auto-configuration, embedded servers, and a convention-over-configuration approach.
 * **REST API**: A REST API (Representational State Transfer API) is a web service that allows systems to communicate over HTTP using standard methods like GET, POST, PUT, and DELETE. It follows REST principles, ensuring scalability, statelessness, and resource-based interactions, typically using JSON or XML for data exchange.
-* **RestClient**: A RestClient is a tool, library, or object used to send HTTP requests and receive responses from RESTful web services. It simplifies communication with APIs by handling methods like GET, POST, PUT, and DELETE, often providing features like authentication, headers, and data serialization. 
+* **docker-compose-wait**: docker-compose-wait is a small utility that makes a container wait for dependencies (e.g., databases, services) to be ready before starting its main process. It is commonly used in docker-compose setups to ensure that services start in the correct order.
 
 
 USAGES
@@ -66,3 +66,15 @@ USAGE DOCKER COMPOSE
 1. In a command line tool check list of active Docker containers with `docker ps`
 1. In a command line tool check list of Docker nerworks with `docker network ls`
 1. In a command line tool check container logs with `docker logs {container-name}`
+
+
+IMPLEMENTATION
+--------------
+
+Implementation details:
+* In **Dockerfile** add following fragment:
+```
+COPY --from=ghcr.io/ufoscout/docker-compose-wait:latest /wait /wait
+ENTRYPOINT ["/bin/sh", "-c", "/wait && java -jar /opt/app/*.jar"]
+```
+* In **docker-compose.yaml** add environment variable **WAIT_HOSTS** (and optionally **WAIT_TIMEOUT**)

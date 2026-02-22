@@ -17,5 +17,3 @@
     build:
       context: ./springboot-helloworld-docker-compose-internal-network-second
       dockerfile: Dockerfile
-    ports:
-      - 9090:9090

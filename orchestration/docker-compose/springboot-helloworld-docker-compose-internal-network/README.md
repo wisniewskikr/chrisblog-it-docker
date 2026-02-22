@@ -3,6 +3,8 @@ EXAMPLE
 
 ![My Image](readme-images/image-01.png)
 
+![My Image](readme-images/image-02.png)
+
 
 DESCRIPTION
 -----------
@@ -10,7 +12,8 @@ DESCRIPTION
 ##### Goal
 The goal of this project is to present how to implement **communication** between two **REST API** applications 
 with usage **Java** programming language and **Spring Boot 3** framework. Class **RestClient** with an interface
-**HttoExchange** is used for this communication.
+**HttoExchange** is used for this communication. Additionally only **First" service is accessible from
+browser or rest client tool. Service **second** is **not visible outside the network**.
 
 ##### Elements
 This project consists of following elements:
